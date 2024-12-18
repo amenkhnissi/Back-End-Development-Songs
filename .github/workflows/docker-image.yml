@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+            docker build . --file Dockerfile --tag amenkhnissi/back-end-development-songs:latest
+            docker login -u amenkhnissi -p ${{ secrets.docker_pass }} 
+            docker push amenkhnissi/back-end-development-songs:latest
+
