@@ -16,6 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: |
+            pip install pytest pytest-cov
             pytest
             docker build . --file Dockerfile --tag amenkhnissi/back-end-development-songs:latest
             docker login -u amenkhnissi -p ${{ secrets.docker_pass }} 
